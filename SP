@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// 합계 함수
+int getSum(const vector<int>& arr) {
+    int sum = 0;
+    for (int num : arr)
+        sum += num;
+    return sum;
+}
+
+// 평균 함수
+double getAverage(const vector<int>& arr) {
+    return static_cast<double>(getSum(arr)) / arr.size();
+}
+
+// 정렬 함수 (isAscending이 true면 오름차순, false면 내림차순)
+void sortArray(vector<int>& arr, bool isAscending) {
+    int size = arr.size();
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            // 비교 방식만 다름
+            if ((isAscending && arr[i] > arr[j]) || (!isAscending && arr[i] < arr[j])) {
+                swap(arr[i], arr[j]);
+            }
+        }
+    }
+}
+
+// 배열 출력
+void printArray(const vector<int>& arr) {
+    for (int num : arr)
+        cout << num << " ";
+    cout << endl;
+}
+
+int main() {
+    int n;
+    cout << "입력할 숫자의 개수를 입력하세요: ";
+    cin >> n;
+
+    vector<int> numbers(n);
+    cout << n << "개의 숫자를 입력하세요: ";
+    for (int i = 0; i < n; i++) {
+        cin >> numbers[i];
+    }
+
+    // 합계 및 평균 출력
+    int sum = getSum(numbers);
+    double avg = getAverage(numbers);
+
+    cout << "합계: " << sum << endl;
+    cout << "평균: " << avg << endl;
+
+    // 정렬 방식 선택
+    int choice;
+    cout << "정렬 방식을 선택하세요 (1: 오름차순, 2: 내림차순): ";
+    cin >> choice;
+
+    if (choice == 1) {
+        sortArray(numbers, true);
+        cout << "오름차순 정렬 결과: ";
+    } else if (choice == 2) {
+        sortArray(numbers, false);
+        cout << "내림차순 정렬 결과: ";
+    } else {
+        cout << "잘못된 입력입니다. 정렬하지 않습니다.\n";
+    }
+
+    printArray(numbers);
+    return 0;
+}
